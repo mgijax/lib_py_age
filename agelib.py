@@ -7,6 +7,7 @@ agelib.py - Utilities for handling Age values
 
 import sys
 import string
+import regsub
 
 def ageMinMax (age):
     """Returns tuple of ints (ageMin, ageMax) given an age string
