@@ -1,3 +1,9 @@
+TAG: lib_py_age-2-0-0
+DATE: 11/20/2000
+STAFF: lec
+RELEASE: A
+CHANGES: import regsub; fixed Install
+
 TAG: lib_py_age-1-0-0
 DATE: 11/20/2000
 STAFF: lec
