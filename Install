@@ -9,7 +9,7 @@ if ( ! -d $INSTDIR ) then
 	exit 1
 endif
 
-foreach i (`ls *.py`)
-chmod ug+w $INSTDIR/$i
+foreach i (*.py)
 cp $i $INSTDIR
+chmod ug+w $INSTDIR/$i
 end
