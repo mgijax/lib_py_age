@@ -39,6 +39,9 @@ def ageMinMax (age):
     elif age == 'embryonic':
 	ageMin = 0.0
 	ageMax = 21.0
+    elif age == 'perinatal':
+	ageMin = 17.00
+	ageMax = 22.0
     elif age == 'postnatal':
 	ageMin = 21.01
 	ageMax = 1846.0
