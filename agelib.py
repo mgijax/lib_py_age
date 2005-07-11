@@ -34,8 +34,8 @@ def ageMinMax (age):
     ageOK = 1
 
     if age in ['Not Specified', 'Not Applicable']:
-	ageMin = None
-	ageMax = None
+	ageMin = -1.0
+	ageMax = -1.0
     elif age == 'embryonic':
 	ageMin = 0.0
 	ageMax = 21.0
