@@ -7,7 +7,7 @@ agelib.py - Utilities for handling Age values
 
 import sys
 import string
-import regsub
+import re
 
 def ageMinMax (age):
     """Returns tuple of ints (ageMin, ageMax) given an age string
@@ -55,10 +55,10 @@ def ageMinMax (age):
 	ageMin = 42.01
 	ageMax = 1846.0
     else:
-	age = regsub.gsub('or ', ',', age)    # 2 or 3 ==> 2,3
-	age = regsub.gsub('and ', ',', age)    # 2 and 3 ==> 2,3
-	age = regsub.gsub('to ', '-', age)    # 2 to 3 ==> 2-3
-	age = regsub.gsub('+', '', age)	# 2+ ==> 2
+	age = re.sub('or ', ',', age)    # 2 or 3 ==> 2,3
+	age = re.sub('and ', ',', age)    # 2 and 3 ==> 2,3
+	age = re.sub('to ', '-', age)    # 2 to 3 ==> 2-3
+	age = re.sub('+', '', age)	# 2+ ==> 2
 
 	# only split into 3 elements
 	try:
