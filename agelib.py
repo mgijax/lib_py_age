@@ -3,6 +3,9 @@
 """
 agelib.py - Utilities for handling Age values
 
+05/30/2006	lec
+	- removed "perintal" and "postnatal immature"
+
 """
 
 import sys
@@ -39,18 +42,18 @@ def ageMinMax (age):
     elif age == 'embryonic':
 	ageMin = 0.0
 	ageMax = 21.0
-    elif age == 'perinatal':
-	ageMin = 17.00
-	ageMax = 22.0
+#    elif age == 'perinatal':
+#	ageMin = 17.00
+#	ageMax = 22.0
     elif age == 'postnatal':
 	ageMin = 21.01
 	ageMax = 1846.0
     elif age == 'postnatal newborn':
 	ageMin = 21.01
 	ageMax = 25.0
-    elif age == 'postnatal immature':
-	ageMin = 25.01
-	ageMax = 42.0
+#    elif age == 'postnatal immature':
+#	ageMin = 25.01
+#	ageMax = 42.0
     elif age == 'postnatal adult':
 	ageMin = 42.01
 	ageMax = 1846.0
