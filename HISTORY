@@ -1,3 +1,9 @@
+TAG: lib_py_age-3-5-0-3
+DATE: 07/24/2006
+STAFF: lec
+CHANGES:
+1) commented out "age = re.sub('+', '', age)"
+
 TAG: lib_py_age-3-5-0-2
 DATE: 05/30/2006
 STAFF: lec
