@@ -1,10 +1,9 @@
-#!/usr/local/bin/python
 
 """
 agelib.py - Utilities for handling Age values
 
 05/30/2006	lec
-	- removed "perintal" and "postnatal immature"
+        - removed "perintal" and "postnatal immature"
 
 """
 
@@ -37,106 +36,106 @@ def ageMinMax (age):
     ageOK = 1
 
     if age in ['Not Specified', 'Not Applicable']:
-	ageMin = -1.0
-	ageMax = -1.0
+        ageMin = -1.0
+        ageMax = -1.0
     elif age == 'embryonic':
-	ageMin = 0.0
-	ageMax = 21.0
+        ageMin = 0.0
+        ageMax = 21.0
 #    elif age == 'perinatal':
 #	ageMin = 17.00
 #	ageMax = 22.0
     elif age == 'postnatal':
-	ageMin = 21.01
-	ageMax = 1846.0
+        ageMin = 21.01
+        ageMax = 1846.0
     elif age == 'postnatal newborn':
-	ageMin = 21.01
-	ageMax = 25.0
+        ageMin = 21.01
+        ageMax = 25.0
 #    elif age == 'postnatal immature':
 #	ageMin = 25.01
 #	ageMax = 42.0
     elif age == 'postnatal adult':
-	ageMin = 42.01
-	ageMax = 1846.0
+        ageMin = 42.01
+        ageMax = 1846.0
     else:
-	age = re.sub('or ', ',', age)    # 2 or 3 ==> 2,3
-	age = re.sub('and ', ',', age)    # 2 and 3 ==> 2,3
-	age = re.sub('to ', '-', age)    # 2 to 3 ==> 2-3
+        age = re.sub('or ', ',', age)    # 2 or 3 ==> 2,3
+        age = re.sub('and ', ',', age)    # 2 and 3 ==> 2,3
+        age = re.sub('to ', '-', age)    # 2 to 3 ==> 2-3
 #	age = re.sub('+', '', age)	# 2+ ==> 2
 
-	# only split into 3 elements
-	try:
-	    ages = string.split(age, ' ', 2)
-	    stem = ages[0]
-	    timeUnit = ages[1]
-	    timeRange = ages[2]
+        # only split into 3 elements
+        try:
+            ages = str.split(age, ' ', 2)
+            stem = ages[0]
+            timeUnit = ages[1]
+            timeRange = ages[2]
 
-	    #
-	    # format is 'embryonic day x,y,z...' ==> (min(x,y,z), max(x,y,z))
-	    # format is 'embryonic day x-y,z...' ==> (min(x,y,z), max(x,y,z))
-	    # format is 'embryonic day x,y-z...' ==> ditto (rpp)
-	    #
-	    if string.find(timeRange, ',') >= 0:
-		times = string.split(timeRange, ',')
+            #
+            # format is 'embryonic day x,y,z...' ==> (min(x,y,z), max(x,y,z))
+            # format is 'embryonic day x-y,z...' ==> (min(x,y,z), max(x,y,z))
+            # format is 'embryonic day x,y-z...' ==> ditto (rpp)
+            #
+            if str.find(timeRange, ',') >= 0:
+                times = str.split(timeRange, ',')
 
-		for i in range(len(times)):
-		    t = x = times[i]
-		    if string.find(t, '-') >= 0:
-			[x, y] = string.split(t, '-')
+                for i in range(len(times)):
+                    t = x = times[i]
+                    if str.find(t, '-') >= 0:
+                        [x, y] = str.split(t, '-')
 
-			# rpp: I added this to insure get min/max for
-			# patterns that end in: ,y-z
-			# discarding the z's would lose the
-			# max of each range, yielding y instead of z.
-			# add the other onto the tail end of list
-			times.append (string.atof(y))
+                        # rpp: I added this to insure get min/max for
+                        # patterns that end in: ,y-z
+                        # discarding the z's would lose the
+                        # max of each range, yielding y instead of z.
+                        # add the other onto the tail end of list
+                        times.append (str.atof(y))
 
-		    # replace each element to it's float value
-		    times[i] = string.atof(x)
+                    # replace each element to it's float value
+                    times[i] = str.atof(x)
 
-		ageMin = min(times)
-		ageMax = max(times)
+                ageMin = min(times)
+                ageMax = max(times)
 
-	    #
-	    # format is 'embryonic day x-y' ==> (x,y)
-	    #
-	    elif string.find(timeRange, '-') >= 0:
-		[ageMin, ageMax] = string.split(timeRange, '-')
-		
-		ageMin = string.atof(ageMin)
-		ageMax = string.atof(ageMax)
+            #
+            # format is 'embryonic day x-y' ==> (x,y)
+            #
+            elif str.find(timeRange, '-') >= 0:
+                [ageMin, ageMax] = str.split(timeRange, '-')
+                
+                ageMin = str.atof(ageMin)
+                ageMax = str.atof(ageMax)
 
-	    #
-	    # format is 'embryonic day x' ==> (x,x)
-	    #
-	    else:
-		ageMin = ageMax = string.atof(timeRange)
+            #
+            # format is 'embryonic day x' ==> (x,x)
+            #
+            else:
+                ageMin = ageMax = str.atof(timeRange)
 
-	    try:
-		if stem == 'postnatal':
-		    if timeUnit == 'day':
-			ageMin = ageMin + 21.01
-			ageMax = ageMax + 21.01
-		    elif timeUnit == 'week':
-			ageMin = ageMin * 7 + 21.01
-			ageMax = ageMax * 7 + 21.01
-		    elif timeUnit == 'month':
-			ageMin = ageMin * 30 + 21.01
-			ageMax = ageMax * 30 + 21.01
-		    elif timeUnit == 'year':
-			ageMin = ageMin * 365 + 21.01
-			ageMax = ageMax * 365 + 21.01
+            try:
+                if stem == 'postnatal':
+                    if timeUnit == 'day':
+                        ageMin = ageMin + 21.01
+                        ageMax = ageMax + 21.01
+                    elif timeUnit == 'week':
+                        ageMin = ageMin * 7 + 21.01
+                        ageMax = ageMax * 7 + 21.01
+                    elif timeUnit == 'month':
+                        ageMin = ageMin * 30 + 21.01
+                        ageMax = ageMax * 30 + 21.01
+                    elif timeUnit == 'year':
+                        ageMin = ageMin * 365 + 21.01
+                        ageMax = ageMax * 365 + 21.01
     
-	    except:
-		ageOK = 0
+            except:
+                ageOK = 0
 
-	except:
-	    ageOK = 0
+        except:
+            ageOK = 0
 
-	if ageMin is None or ageMax is None:
-	    ageOK = 0
+        if ageMin is None or ageMax is None:
+            ageOK = 0
 
-	if not ageOK:
-		ageMin = -1.0
-		ageMax = -1.0
+        if not ageOK:
+                ageMin = -1.0
+                ageMax = -1.0
 
     return (ageMin, ageMax)
