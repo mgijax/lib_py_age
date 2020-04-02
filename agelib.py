@@ -8,7 +8,6 @@ agelib.py - Utilities for handling Age values
 """
 
 import sys
-import string
 import re
 
 def ageMinMax (age):
