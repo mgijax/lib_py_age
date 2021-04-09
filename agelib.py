@@ -9,6 +9,8 @@ agelib.py - Utilities for handling Age values
 
 import sys
 import re
+import locale
+from locale import atof
 
 def ageMinMax (age):
     """Returns tuple of ints (ageMin, ageMax) given an age string
@@ -86,10 +88,10 @@ def ageMinMax (age):
                         # discarding the z's would lose the
                         # max of each range, yielding y instead of z.
                         # add the other onto the tail end of list
-                        times.append (str.atof(y))
+                        times.append (atof(y))
 
                     # replace each element to it's float value
-                    times[i] = str.atof(x)
+                    times[i] = atof(x)
 
                 ageMin = min(times)
                 ageMax = max(times)
@@ -100,14 +102,14 @@ def ageMinMax (age):
             elif str.find(timeRange, '-') >= 0:
                 [ageMin, ageMax] = str.split(timeRange, '-')
                 
-                ageMin = str.atof(ageMin)
-                ageMax = str.atof(ageMax)
+                ageMin = atof(ageMin)
+                ageMax = atof(ageMax)
 
             #
             # format is 'embryonic day x' ==> (x,x)
             #
             else:
-                ageMin = ageMax = str.atof(timeRange)
+                ageMin = ageMax = atof(timeRange)
 
             try:
                 if stem == 'postnatal':
